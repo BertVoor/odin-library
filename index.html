@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>The Odin Project - Library</title>
+	</head>
+	<body>
+		<header>
+			<h1>Odin's Library</h1>
+		</header>
+
+		<dialog id="newBookDialog">
+			<form method="dialog">
+				<p>
+					<label
+						>Author:
+						<input type="text" name="Author" id="author" required />
+					</label>
+				</p>
+				<p>
+					<label
+						>Title:
+						<input type="text" name="Title" id="title" required />
+					</label>
+				</p>
+				<p>
+					<label
+						>Number of pages:
+						<input type="number" name="Pages" id="pages" required />
+					</label>
+				</p>
+				<p>
+					<label
+						>Read the book:
+						<input type="radio" name="ReadStatus" id="readStatus" required />
+					</label>
+				</p>
+				<input type="submit" value="Submit" />
+			</form>
+		</dialog>
+		<p>
+			<button id="showDialog">Add a new book</button>
+		</p>
+
+		<div id="bookDisplay"></div>
+
+		<script src="script.js"></script>
+	</body>
+</html>
