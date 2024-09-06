@@ -33,6 +33,8 @@ function addBookToLibrary() {
 
 	const newBook = new Book(newTitle, newAuthor, newPages, readBook);
 
+	console.log(newBook);
+
 	myLibrary.push(newBook);
 	console.log("book added");
 	updateBookDisplay(newBook);
@@ -46,12 +48,14 @@ myLibrary.push(bookTwo);
 ////////////////////////
 
 function updateBookDisplay(book) {
+	const readStatus = book.readBook ? "Read" : "Not read yet";
 	const bookCardHTML = `<div class="bookCard">
 	<h2 class="bookTitle">${book.title}</h2>
 	<p class="bookAuthor">${book.author}</p>
 	<p class="bookPages">${book.pages} pages</p>
-	<p class="bookReadStatus">read</p>
+	<p class="bookReadStatus">${readStatus}</p>
 	</div>`;
+
 	const card = document.createElement("div");
 	card.classList.add("card");
 	card.insertAdjacentHTML("beforeend", bookCardHTML);
