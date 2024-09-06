@@ -4,12 +4,7 @@ const myLibrary = [];
 
 const showBtn = document.getElementById("showDialog");
 const dialog = document.getElementById("newBookDialog");
-const confirmBtn = dialog.querySelector("#confirmBtn");
-
-const newAuthor = dialog.querySelector("#author");
-const newTitle = dialog.querySelector("#title");
-const newPages = dialog.querySelector("#pages");
-const newReadStatus = dialog.querySelector("#readStatus");
+const submitBtn = dialog.querySelector("#submitBtn");
 
 const bookDisplay = document.getElementById("bookDisplay");
 
@@ -30,9 +25,17 @@ function Book(title, author, pages, readBook) {
 }
 
 function addBookToLibrary() {
-	const newBook = new Book(title, author, pages, readBook);
+	const newAuthor = dialog.querySelector("#author").value;
+	const newTitle = dialog.querySelector("#title").value;
+	const newPages = dialog.querySelector("#pages").value;
+	const newReadStatus = dialog.querySelector("#readStatus");
+	const readBook = newReadStatus.checked ? true : false;
+
+	const newBook = new Book(newTitle, newAuthor, newPages, readBook);
+
 	myLibrary.push(newBook);
 	console.log("book added");
+	updateBookDisplay(newBook);
 }
 
 ////////////////////////
@@ -54,5 +57,9 @@ function updateBookDisplay(book) {
 	card.insertAdjacentHTML("beforeend", bookCardHTML);
 	bookDisplay.appendChild(card);
 }
+
+submitBtn.addEventListener("click", () => {
+	addBookToLibrary();
+});
 
 myLibrary.forEach((book) => updateBookDisplay(book));
