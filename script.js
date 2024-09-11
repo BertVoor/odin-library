@@ -8,6 +8,7 @@ const submitBtn = dialog.querySelector("#submitBtn");
 
 const bookDisplay = document.getElementById("bookDisplay");
 
+
 showBtn.addEventListener("click", () => {
 	dialog.showModal();
 });
@@ -33,18 +34,22 @@ function addBookToLibrary() {
 
 	const newBook = new Book(newTitle, newAuthor, newPages, readBook);
 
-	console.log(newBook);
+	//console.log(newBook);
 
 	myLibrary.push(newBook);
 	console.log("book added");
 	updateBookDisplay(newBook);
+
+	
 }
 
 ////////////////////////
+//*
 const bookOne = new Book("titel", "schrijver", 420, true);
 const bookTwo = new Book("hello", "world", 666, false);
 myLibrary.push(bookOne);
 myLibrary.push(bookTwo);
+//*/
 ////////////////////////
 
 function updateBookDisplay(book) {
@@ -66,3 +71,14 @@ submitBtn.addEventListener("click", () => {
 });
 
 myLibrary.forEach((book) => updateBookDisplay(book));
+
+
+bookDisplay.addEventListener("click", (e) => {
+	if(e.target.classList.contains("deleteBtn")) {
+		console.log("book deleted");
+	}
+});
+
+
+
+
