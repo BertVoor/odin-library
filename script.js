@@ -1,6 +1,7 @@
 console.log("script loaded");
 
 const myLibrary = [];
+let index = 0;
 
 const showBtn = document.getElementById("showDialog");
 const dialog = document.getElementById("newBookDialog");
@@ -34,12 +35,8 @@ function addBookToLibrary() {
 
 	const newBook = new Book(newTitle, newAuthor, newPages, readBook);
 
-	//console.log(newBook);
-
 	myLibrary.push(newBook);
-	console.log("book added");
-	updateBookDisplay(newBook);
-
+	updateBookDisplay();
 	
 }
 
@@ -49,10 +46,11 @@ const bookOne = new Book("titel", "schrijver", 420, true);
 const bookTwo = new Book("hello", "world", 666, false);
 myLibrary.push(bookOne);
 myLibrary.push(bookTwo);
+updateBookDisplay();
 //*/
 ////////////////////////
 
-function updateBookDisplay(book) {
+function drawCard(book) {
 	const readStatus = book.readBook ? "Read" : "Not read yet";
 	const bookCardHTML = `<h2 class="bookTitle">${book.title}</h2>
 	<p class="bookAuthor">${book.author}</p>
@@ -62,6 +60,8 @@ function updateBookDisplay(book) {
 
 	const card = document.createElement("div");
 	card.classList.add("card");
+	card.id = index;
+	index++;
 	card.insertAdjacentHTML("beforeend", bookCardHTML);
 	bookDisplay.appendChild(card);
 }
@@ -70,12 +70,25 @@ submitBtn.addEventListener("click", () => {
 	addBookToLibrary();
 });
 
-myLibrary.forEach((book) => updateBookDisplay(book));
+function updateBookDisplay(){
+	//first empty display and set index to 0 so that every card's
+	//id equals it's myLibrary[] index.
+	bookDisplay.innerHTML = "";
+	index = 0;
+	myLibrary.forEach((book) => drawCard(book));
+};
 
 
+//EventListener for delete button
 bookDisplay.addEventListener("click", (e) => {
 	if(e.target.classList.contains("deleteBtn")) {
-		console.log("book deleted");
+		
+		const targetIndex = e.target.parentElement.id;
+
+		//remove obj with index targetIndex from library
+		myLibrary.splice(targetIndex, 1);
+		
+		updateBookDisplay();
 	}
 });
 
