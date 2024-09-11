@@ -52,7 +52,8 @@ function updateBookDisplay(book) {
 	const bookCardHTML = `<h2 class="bookTitle">${book.title}</h2>
 	<p class="bookAuthor">${book.author}</p>
 	<p class="bookPages">${book.pages} pages</p>
-	<p class="bookReadStatus">${readStatus}</p>`;
+	<p class="bookReadStatus">${readStatus}</p>
+	<button class="deleteBtn">Delete</button>`;
 
 	const card = document.createElement("div");
 	card.classList.add("card");
