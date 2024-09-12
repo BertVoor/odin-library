@@ -24,19 +24,22 @@ function Book(title, author, pages, readBook) {
 			? `${title} by ${author}, ${pages} pages, not read yet.`
 			: `${title} by ${author}, ${pages} pages, finished reading.`;
 	};
-}
+};
+
+Book.prototype.toggleReadStatus = function() {
+	this.readBook = !this.readBook;
+};
 
 function addBookToLibrary() {
-	const newAuthor = dialog.querySelector("#author").value;
 	const newTitle = dialog.querySelector("#title").value;
+	const newAuthor = dialog.querySelector("#author").value;
 	const newPages = dialog.querySelector("#pages").value;
 	const newReadStatus = dialog.querySelector("#readStatus");
-	const readBook = newReadStatus.checked ? true : false;
+	let readBook = newReadStatus.checked ? true : false;
 
 	const newBook = new Book(newTitle, newAuthor, newPages, readBook);
 
 	myLibrary.push(newBook);
-	updateBookDisplay();
 	
 }
 
@@ -51,11 +54,11 @@ updateBookDisplay();
 ////////////////////////
 
 function drawCard(book) {
-	const readStatus = book.readBook ? "Read" : "Not read yet";
+	const readStatus = book.readBook ? "Unread" : "Read";
 	const bookCardHTML = `<h2 class="bookTitle">${book.title}</h2>
 	<p class="bookAuthor">${book.author}</p>
 	<p class="bookPages">${book.pages} pages</p>
-	<p class="bookReadStatus">${readStatus}</p>
+	<button class="readStatus">${readStatus}</button>
 	<button class="deleteBtn">Delete</button>`;
 
 	const card = document.createElement("div");
@@ -64,10 +67,12 @@ function drawCard(book) {
 	index++;
 	card.insertAdjacentHTML("beforeend", bookCardHTML);
 	bookDisplay.appendChild(card);
-}
+};
 
 submitBtn.addEventListener("click", () => {
 	addBookToLibrary();
+	updateBookDisplay();
+
 });
 
 function updateBookDisplay(){
@@ -79,8 +84,8 @@ function updateBookDisplay(){
 };
 
 
-//EventListener for delete button
 bookDisplay.addEventListener("click", (e) => {
+	//EventListener for delete button
 	if(e.target.classList.contains("deleteBtn")) {
 		
 		const targetIndex = e.target.parentElement.id;
@@ -89,7 +94,15 @@ bookDisplay.addEventListener("click", (e) => {
 		myLibrary.splice(targetIndex, 1);
 		
 		updateBookDisplay();
-	}
+	};
+	//EventListener for Read/Unread button
+	if(e.target.classList.contains("readStatus")){
+
+		const targetIndex = e.target.parentElement.id;
+		myLibrary[targetIndex].toggleReadStatus();
+
+		updateBookDisplay();
+	};
 });
 
 
